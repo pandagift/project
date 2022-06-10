@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import Counter from './components/Counter.jsx';
+import PostForm from './components/PostForm.jsx';
 import PostItem from './components/PostItem.jsx';
 import PostList from './components/PostList.jsx';
 import MyButton from './components/UI/button/MyButton.jsx';
@@ -12,30 +13,15 @@ function App() {
     { id: 2, title: 'Javascript', body: 'Description' },
     { id: 3, title: 'Javascript', body: 'Description' },
   ]);
-  const [post, setPost] = useState({title:'',body:''})
 
-  const addNewPost = (e) => {
-    e.preventDefault()
-    
-setPosts([...posts,{...post,id: Date.now()}])
-setPost({title:'',body:''})
+  const createPost=(newPost)=>{
+    setPosts([...posts,newPost])
   }
+
 
   return (
     <div className="App">
-      <form>
-        <MyInput
-          value={post.title}
-          onChange={e => setPost({...post,title: e.target.value})}
-          type='text'
-          placeholder='Name' />
-        <MyInput
-          value={post.body}
-          onChange={e => setPost({...post,body: e.target.value})}
-          type='text'
-          placeholder='Description' />
-        <MyButton onClick={addNewPost}>Create post</MyButton>
-      </form>
+      <PostForm create={createPost}/>
       <PostList posts={posts} title="Posts list:" />
     </div>
   );
